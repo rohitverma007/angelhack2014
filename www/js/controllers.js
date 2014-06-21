@@ -3,6 +3,16 @@ angular.module('starter.controllers', [])
 .controller('DashCtrl', function($scope) {
 })
 
+.controller('HomeCtrl', function($scope) {
+})
+
+.controller('SelectionCtrl', function($scope) {
+})
+
+
+.controller('NavigationCtrl', function($scope) {
+})
+
 .controller('FriendsCtrl', function($scope, Friends) {
   $scope.friends = Friends.all();
 })
@@ -13,3 +23,6 @@ angular.module('starter.controllers', [])
 
 .controller('AccountCtrl', function($scope) {
 });
+
+
+
