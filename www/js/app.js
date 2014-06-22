@@ -117,7 +117,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
 
-
+      .state('tab.form2', {
+      url: '/form2',
+      views: {
+        'tab-dash': {
+          templateUrl: 'templates/form2.html'
+          //controller: 'Form2Ctrl'
+        }
+      }
+    })
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/home');
 
