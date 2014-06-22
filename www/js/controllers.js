@@ -250,7 +250,7 @@ angular.module('starter.controllers', [])
         $scope.setCategory = function(category){
             console.log(category);
             $rootScope.category = category;
-            $location.path("/tab/dash");
+            $location.path("/tab/task");
         }
 
     })
@@ -365,6 +365,27 @@ angular.module('starter.controllers', [])
                 console.log("Error: " + error);
             }
         });
+
+    })
+    .controller('ListViewCtrl', function($scope, $stateParams) {
+        var postId = $stateParams.postId;
+
+        var BookPost = Parse.Object.extend("BookPost");
+
+        var query = new Parse.Query(BookPost);
+
+        query.equalTo("objectId", postId);
+
+        query.find({
+            success: function(result) {
+                $scope.list = result[0].attributes;
+                $scope.$apply();
+            },
+            error: function(object, error) {
+
+            }
+        });
+
 
     });
 

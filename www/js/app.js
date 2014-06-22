@@ -107,7 +107,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                     }
                 }
             })
-
+            .state('tab.listView', {
+                url: '/listView/:postId',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/listView.html',
+                        controller: 'ListViewCtrl'
+                    }
+                }
+            })
             .state('tab.task', {
                 url: '/task',
                 views: {

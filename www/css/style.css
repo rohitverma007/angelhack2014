@@ -71,3 +71,24 @@ h1 {color: white;}
     top: 120px !important
 }
 
+.image1 div.item-image{
+    height:0%;
+    width:30%;
+    position:fixed;
+    top:50%;
+    left:50%;
+    margin-top:-50px;
+    margin-left:-100px;
+    position: relative;
+}
+#cardie{
+    height: 420px;
+}
+div.item-image img{
+    width:80%;
+    height: 300px;
+}
+
+#mapViewCss{
+    padding: 0;
+}
