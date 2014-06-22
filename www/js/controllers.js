@@ -9,7 +9,10 @@ angular.module('starter.controllers', [])
             navigator.geolocation.getCurrentPosition(function(position) {
                 currentLat = position.coords.latitude;
                 currentLong = position.coords.longitude;
-
+if($rootScope.geocode){
+    currentLat = $rootScope.geocode.k;
+    currentLong = $rootScope.geocode.A;
+}
                 var marker;
                 var myLatlng = new google.maps.LatLng(currentLat,currentLong);
                 var mapOptions = {
@@ -38,10 +41,10 @@ angular.module('starter.controllers', [])
                         for(var i = 0; i < posts.length; i++){
                             post = posts[i];
 
-                            if(post.attributes.geoCode){
+                            if(post.attributes.geocode){
                                 console.log(post);
-                                latLngObject.lat = post.attributes.geoCode.k;
-                                latLngObject.lng = post.attributes.geoCode.A;
+                                latLngObject.lat = post.attributes.geocode.k;
+                                latLngObject.lng = post.attributes.geocode.A;
                                 console.log(latLngObject);
 
 
@@ -163,6 +166,7 @@ angular.module('starter.controllers', [])
 
     .controller('SelectionCtrl', function($scope, $rootScope, $location) {
         $scope.user = {};
+        $rootScope.user = {};
         console.log("ehie");
         Parse.initialize("QChbWiKjeo1B17tFPlmZ6Xax7NcNRqY5BNM4urHa", "NXEGGmO3LlJTf64SYAa7QJ7gLytL5I5vAbxr5tur");
 
@@ -170,8 +174,11 @@ angular.module('starter.controllers', [])
             if (response.status === 'connected') {
 
                 FB.api('/me', function (response) {
+                    console.log(response);
                     $scope.user.name = response.first_name;
-
+                    $rootScope.user.fName = response.first_name;
+                    $rootScope.user.lName = response.last_name;
+                    $rootScope.user.email = response.email;
                     $scope.$apply();
 
                 });
@@ -181,10 +188,25 @@ angular.module('starter.controllers', [])
 
 
     });
+
+        var autocomplete = new google.maps.places.Autocomplete(
+            /** @type {HTMLInputElement} */(document.getElementById('autoComplete')));
+        // When the user selects an address from the dropdown,
+        // populate the address fields in the form.
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            console.log(autocomplete.getPlace());
+            $rootScope.geocode = autocomplete.getPlace().geometry.location;
+            console.log($rootScope.geocode);
+
+
+
+
+        });
+
         $scope.setCategory = function(category){
             console.log(category);
             $rootScope.category = category;
-            $location.path("/tab/dash");
+            $location.path("/tab/task");
         }
 
     })
@@ -201,33 +223,51 @@ angular.module('starter.controllers', [])
     .controller('AccountCtrl', function($scope) {
     })
 
-    .controller('PostListingCtrl', function($scope){
+    .controller('FormCtrl', function($scope, $rootScope, $location){
+        $rootScope.category = "BookPost";
         var user = Parse.User.current();
         var location;
-        var geoCode;
+        var geocode;
         var BookPost = Parse.Object.extend("BookPost");
         var bookPost = new BookPost();
-        autocomplete = new google.maps.places.Autocomplete(
+        var autocomplete = new google.maps.places.Autocomplete(
             /** @type {HTMLInputElement} */(document.getElementById('autoComplete')));
         // When the user selects an address from the dropdown,
         // populate the address fields in the form.
         google.maps.event.addListener(autocomplete, 'place_changed', function() {
             console.log(autocomplete.getPlace());
-            geoCode = autocomplete.getPlace().geometry.location;
+            geocode = autocomplete.getPlace().geometry.location;
             location = autocomplete.getPlace().formatted_address;
-            console.log(geoCode);
+            console.log(geocode);
 
+
+
+
+        });
+
+        $scope.submitPost = function(){
             bookPost.set({
                 location: location,
-                geoCode: geoCode,
-                postCondition: "Good",
-                postISBN: "22",
-                postName: "e",
-                postTitle: "Book"
+                geocode: geocode,
+                title: $scope.bookTitle,
+                authorName: $scope.authorName,
+                isbn: $scope.isbn,
+                courseCode: $scope.courseCode,
+                phoneNumber: $scope.phoneNumber,
+                comments: $scope.comments,
+                email: $rootScope.user.email
             });
+
+            bookPost.set("parent", Parse.User.current());
+
+            var postACL = new Parse.ACL(Parse.User.current());
+            postACL.setPublicReadAccess(true);
+            bookPost.setACL(postACL);
 
             bookPost.save(null, {
                 success: function(gameScore) {
+                    $location.path('/tab/dash'); //TODO - change to appropriate link
+                    $scope.$apply();
                     // Execute any logic that should take place after the object is saved.
                     console.log('New object created with objectId: ' + gameScore.id);
                 },
@@ -237,8 +277,7 @@ angular.module('starter.controllers', [])
                     console.log('Failed to create new object, with error code: ' + error.description);
                 }
             });
-
-        });
+        }
 
 
 
@@ -246,45 +285,6 @@ angular.module('starter.controllers', [])
 
     })
     .controller('NavigationCtrl', function($scope) {
-        // Create the autocomplete object, restricting the search
-        // to geographical location types.
-        var user = Parse.User.current();
-        var location;
-        var geoCode;
-        var BookPost = Parse.Object.extend("BookPost");
-        var bookPost = new BookPost();
-        autocomplete = new google.maps.places.Autocomplete(
-            /** @type {HTMLInputElement} */(document.getElementById('autoComplete')));
-        // When the user selects an address from the dropdown,
-        // populate the address fields in the form.
-        google.maps.event.addListener(autocomplete, 'place_changed', function() {
-            console.log(autocomplete.getPlace());
-            geoCode = autocomplete.getPlace().geometry.location;
-            location = autocomplete.getPlace().formatted_address;
-            console.log(geoCode);
-
-            bookPost.set({
-                location: location,
-                geoCode: geoCode,
-                postCondition: "Good",
-                postISBN: "22",
-                postName: "e",
-                postTitle: "Book"
-            });
-
-            bookPost.save(null, {
-                success: function(gameScore) {
-                    // Execute any logic that should take place after the object is saved.
-                    console.log('New object created with objectId: ' + gameScore.id);
-                },
-                error: function(gameScore, error) {
-                    // Execute any logic that should take place if the save fails.
-                    // error is a Parse.Error with an error code and description.
-                    console.log('Failed to create new object, with error code: ' + error.description);
-                }
-            });
-
-        });
 
     })
     .controller('ListingsCtrl', function($scope){

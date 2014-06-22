@@ -1,1 +1,31 @@
-/* Empty. Add your own CSS if you like */
+
+p {
+    color: white;
+    font-size: 18px;
+}
+a {
+    text-decoration: none;
+}
+
+.teal-color {
+    color: #009999;
+}
+
+.white-color {
+    color: #000000;
+}
+
+
+ion-content {
+    background-color: #99cc33;
+}
+
+.left-justified {
+    position: absolute;
+    left: 12%;
+}
+
+#postOrFind {
+    max-width: 340px;
+    margin: 40% auto;
+}

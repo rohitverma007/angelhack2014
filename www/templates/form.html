@@ -1,64 +1,71 @@
-<ion-view title="Textbook Details">
-  <ion-content has-header="true" padding="true">
-  <!--<ul class="list">
-  	<li class="item">Textbook Name*</li>
-  	<li class="item"> Author*</li>
-  	<li class="item"> ISBN # </li>
-  	<li class="item">Course Code </li>
-  	<li class="item">Time</li>
-  </ul>-->
-  <div class="list">
-  	<label class="item item-input item-stacked-label ">
-  		<span class="input-label">Textbook Name*</span>
-  		<input type="text" placeholder="eg. Physics for Life">
-  	</label>
-  	<label class="item item-input item-stacked-label">
-  		<span class="input-label">Author*</span>
-  		<input type="text" placeholder="eg. John Miller">
-  	</label>
-  	<label class="item item-input item-stacked-label">
-  		<span class="input-label">ISBN #</span>
-  		<input type="text" placeholder="eg. 978-1-56592-197-9">
-  	</label>
-  	<label class="item item-input item-stacked-label">
-  		<span class="input-label">Course Code</span>
-  		<input type="text" placeholder="eg. ECE 105">
-  	</label>
-  	<label class="item item-input item-stacked-label">
-  		<span class="input-label">Location</span>
-  		<input type="text" placeholder="eg. Davis Centre">
-  	</label>
-        <label class="item item-input item-stacked-label">
-      <span class="input-label">First Name</span>
-      <input type="text" placeholder="eg. Michelle">
-    </label>
-    <label class="item item-input item-stacked-label">
-      <span class="input-label">Last Name</span>
-      <input type="text" placeholder="eg. Evans">
-    </label>
-    <label class="item item-input item-stacked-label">
-      <span class="input-label">Phone number</span>
-      <input type="text" placeholder="eg. 416-888-8888">
-    </label>
-    <label class="item item-input item-select">
-      <div class="input-label"> Condition </div>
-      <select class="item-left">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-        <option>6</option>
-        <option>7</option>
-        <option>8</option>
-        <option>9</option>
-        <option>10</option>
-      </select> /10
-    </label>
-    <label class="item item-input item-stacked-label">
-      <span class="input-label">Comments</span>
-      <input type="text">
-    </label>
-    <a href="#/tab/task"><button class="button button-calm">Submit</button></a>
-  </ion-content>
+<ion-view title="Posting Information">
+    <ion-content has-header="true" padding="true">
+        <!--<ul class="list">
+            <li class="item">Textbook Name*</li>
+            <li class="item"> Author*</li>
+            <li class="item"> ISBN # </li>
+            <li class="item">Course Code </li>
+            <li class="item">Time</li>
+        </ul>-->
+        <br>
+        <p><b>Textbook Information</b></p>
+        <div class="list list-indert">
+            <label class="item item-input">
+                <input ng-model="bookTitle" type="text" placeholder="Textbook Name*">
+            </label>
+            <label class="item item-input">
+                <input type="text" ng-model="authorName" placeholder="Author*">
+            </label>
+            <label class="item item-input">
+                <input type="text" ng-model="isbn" placeholder="ISBN Number">
+            </label>
+            <label class="item item-input">
+                <input type="text" ng-model="courseCode" placeholder="Course Code">
+            </label>
+
+            <label class="item item-input">
+                <div class="input-label"> Condition </div>
+                <select class="item item-right" ng-model="bookCondition">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                </select>
+            </label>
+        </div>
+
+        <br>
+        <p><b>Your Contact Information</b></p>
+
+        <label class="item item-input">
+            <input type="text" value="{{user.fName}}" placeholder="First Name*">
+        </label>
+        <label class="item item-input">
+            <input type="text" value="{{user.lName}}" placeholder="Last Name">
+        </label>
+        <label class="item item-input">
+            <input type="text" ng-model="phoneNumber" placeholder="Phone number*">
+        </label>
+        <label class="item item-input">
+            <input type="text" id="autoComplete"  placeholder="Location*">
+        </label>
+
+        <br>
+
+        <label class="item item-input">
+            <span class="input-label">Comments</span>
+            <input type="text" ng-model="comments">
+        </label>
+
+        <br/>
+
+        <label>
+            <button class="button button-full button-calm" ng-click="submitPost()"><b>Submit</b></button></label>
+    </ion-content>
 </ion-view>

@@ -1,19 +1,20 @@
-<ion-view title="Start">
-  <ion-content class="has-header padding">
-      <h1 align="center">Welcome {{user.name}}</h1>
-    <p>Choose a university or college</p>
-    <div class="list list-inset">
-    <label class="item item-input">
-    <i class="icon ion-search placeholder-icon"></i>
-    <input type="text" placeholder="University Name">
-  </label>
-</div>
-    <p>Choose a Category</p>
-    <ul>
-    	<li><button class="button button-full button-calm" ng-click="setCategory('BookPost')">Books</button></li>
-    	<li><button class="button button-full button-calm" ng-click="setCategory('Housing')">Student Housing</button></li>
-    	<li><button class="button button-full button-calm" ng-click="setCategory('StudyGroups')">Study Groups</button></li>
-    </ul>
-    <a href="#/tab/task"><button class="button button-outline button-calm">OK</button></a>
-  </ion-content>
+<ion-view title="Welcome {{user.name}}">
+    <ion-content class="has-header padding">
+        <br>
+        <p><b>Choose a university or college</b></p>
+        <div class="bar item-input-inset">
+            <div class="item-input-wrapper">
+                <i class="icon ion-ios7-search placeholder-icon"></i>
+                <input type="search" id="autoComplete" placeholder="University/College Name">
+            </div>
+        </div>
+        <br>
+        <p><b>Choose a Category</b></p>
+
+        <ul>
+            <li><button class="button icon-left ion-ios7-bookmarks button-full button-white" ng-click="setCategory('BookPost')"><b class="left-justified">Books or Textbooks</b></button></li>
+            <li><button class="button icon-left ion-ios7-home button-full button-white" ng-click="setCategory('HousingPost')"><b class="left-justified">Student Housing</b></button></li>
+            <li><button class="button icon-left ion-android-friends button-full button-white" ng-click="setCategory('GroupsPost')"><b class="left-justified">Study Groups</b></button></li>
+        </ul>
+    </ion-content>
 </ion-view>
