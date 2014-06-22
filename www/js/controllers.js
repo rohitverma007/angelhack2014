@@ -2,17 +2,21 @@ angular.module('starter.controllers', [])
 
     .controller('DashCtrl', function($scope, $http, $rootScope) {
         Parse.initialize("QChbWiKjeo1B17tFPlmZ6Xax7NcNRqY5BNM4urHa", "NXEGGmO3LlJTf64SYAa7QJ7gLytL5I5vAbxr5tur");
-
+        $scope.searchData = "All";
+        $scope.$watch('searchData',function(old, ndew){
+            console.log(old, ndew);
+        });
         var currentLat;
         var currentLong;
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
+
                 currentLat = position.coords.latitude;
                 currentLong = position.coords.longitude;
-if($rootScope.geocode){
-    currentLat = $rootScope.geocode.k;
-    currentLong = $rootScope.geocode.A;
-}
+                if($rootScope.geocode){
+                    currentLat = $rootScope.geocode.k;
+                    currentLong = $rootScope.geocode.A;
+                }
                 var marker;
                 var myLatlng = new google.maps.LatLng(currentLat,currentLong);
                 var mapOptions = {
@@ -26,31 +30,41 @@ if($rootScope.geocode){
 //                });
 
                 var latLngObject = {};
-
-
+                var markers = [];
 //                L.tileLayer('https://{s}.tiles.mapbox.com/v3/rohit-map.ideelj8n/{z}/{x}/{y}.png', {
 //                    maxZoom: 18
 //                }).addTo(map);
+                $scope.queryPosts = function(filter) {
+                    var BookPosts = Parse.Object.extend($rootScope.category);
+                    var bookPost = new Parse.Query(BookPosts);
+                    if(filter){
+                        console.log($scope.searchData);
+                        for (var i = 0; i < markers.length; i++) {
+                            markers[i].setMap(null);
+                        }
+                        bookPost.equalTo("title", filter);
 
-                var BookPosts = Parse.Object.extend($rootScope.category);
-                var bookPost = new Parse.Query(BookPosts);
+                    }
+                    $scope.searchBy = [];
+                    bookPost.find({
+                        success: function (posts) {
+                            $scope.posts = posts;
+                            console.log(posts);
+                            for (var i = 0; i < posts.length; i++) {
+                                post = posts[i];
+                                if (post.attributes.title) {
+                                    $scope.searchBy.push(post.attributes.title);
+//                                    console.log($scope.searchBy);
+                                }
+                                if (post.attributes.geocode) {
+                                    console.log(post);
+                                    latLngObject.lat = post.attributes.geocode.k;
+                                    latLngObject.lng = post.attributes.geocode.A;
+//                                    console.log(latLngObject);
 
-                bookPost.find({
-                    success:function(posts){
-                        console.log(posts);
-                        for(var i = 0; i < posts.length; i++){
-                            post = posts[i];
 
-                            if(post.attributes.geocode){
-                                console.log(post);
-                                latLngObject.lat = post.attributes.geocode.k;
-                                latLngObject.lng = post.attributes.geocode.A;
-                                console.log(latLngObject);
-
-
-                                    var infoWindowContent = post.attributes.location;
-
-
+                                    var infoWindowContent = "Textbooek Name: " + post.attributes.title + "</br>" +
+                                        post.attributes.location+"</br><a href='/tab/listView/'"+post.id+"> More Details </a>";
 
 
                                     marker = new google.maps.Marker({
@@ -58,17 +72,18 @@ if($rootScope.geocode){
                                         map: map,
                                         title: 'Hello World!'
                                     });
-                                closure(marker, infoWindowContent, i);
+                                    marker.setMap(map);
+                                    markers.push(marker);
+                                    closure(marker, infoWindowContent, i);
 
 
-
+                                }
 
                             }
-
                         }
-                    }
-                });
+                    });
 
+                };
                 function closure(marker, infoWindowContent) {
                     var infowindow = new google.maps.InfoWindow({
                         content: infoWindowContent
@@ -77,12 +92,35 @@ if($rootScope.geocode){
                     google.maps.event.addListener(marker, 'click', function() {
                         infowindow.open(marker.get('map'), marker);
                     });
+                    $scope.$apply();
                 }
 
 
+                $scope.queryPosts();
 
 
+                $scope.filterBySearch = function(lol){
 
+
+                    $scope.queryPosts(lol);
+//                    var BookPost = Parse.Object.extend("BookPost");
+//                    var query = new Parse.Query(BookPost);
+//                    console.log($scope.search);
+//                    query.equalTo("title", $scope.search);
+//                    query.find({
+//                        success: function(results) {
+//                            console.log("Successfully retrieved " + results.length + " scores.");
+//                            // Do something with the returned Parse.Object values
+//                            for (var i = 0; i < results.length; i++) {
+//                                var object = results[i];
+//                                console.log(object.id + ' - ' + object.get('title'));
+//                            }
+//                        },
+//                        error: function(error) {
+//                            alert("Error: " + error.code + " " + error.message);
+//                        }
+//                    });
+                }
 
 
 
@@ -206,7 +244,7 @@ if($rootScope.geocode){
         $scope.setCategory = function(category){
             console.log(category);
             $rootScope.category = category;
-            $location.path("/tab/task");
+            $location.path("/tab/dash");
         }
 
     })
@@ -284,21 +322,44 @@ if($rootScope.geocode){
 
 
     })
+    .controller('AskCtrl', function($scope) {
+    })
     .controller('NavigationCtrl', function($scope) {
-
     })
     .controller('ListingsCtrl', function($scope){
-//	Parse.initialize("QChbWiKjeo1B17tFPlmZ6Xax7NcNRqY5BNM4urHa", "NXEGGmO3LlJTf64SYAa7QJ7gLytL5I5vAbxr5tur");
-//	var ListItem= Parse.Object.extend("BookPost");
-//	var query= new Parse.Query(BookPost);
-//	query.find({
-//		success: function(listItem){
-//			console.dir(listItem);
-//		},
-//		error: function(listItem, error){
-//			console.log("error" + error);
-//		}
-//	});
+        Parse.initialize("QChbWiKjeo1B17tFPlmZ6Xax7NcNRqY5BNM4urHa",
+            "NXEGGmO3LlJTf64SYAa7QJ7gLytL5I5vAbxr5tur"
+        );
+
+        var responsesTotal = Parse.Object.extend("BookPost");
+
+        var query = new Parse.Query(responsesTotal);
+        var results;
+        //results.get
+
+        //console.dir(query);
+        query.find({
+            success: function(results) {
+                // The object was retrieved successfully.
+                console.dir(results);
+                //retrieveResults(results);
+                var resultLen = results.length;
+                if(resultLen > 0) {
+                    console.dir(results[0]);
+                    //for(var i = 0; i < resultLen; i++) {
+
+                    $scope.lists = results;
+                    $scope.$apply();
+
+                }
+            },
+            error: function(object, error) {
+                // The object was not retrieved successfully.
+                // error is a Parse.Error with an error code and description.
+                console.log("Error: " + error);
+            }
+        });
+
     });
 
 

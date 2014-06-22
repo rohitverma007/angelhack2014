@@ -29,3 +29,45 @@ ion-content {
     max-width: 340px;
     margin: 40% auto;
 }
+
+.tabs {
+    background-color: #009999;
+}
+
+
+#customized-nav-bar {
+    background-color: #009999;
+    color: white;
+}
+
+#white-back-button {
+    color: white;
+}
+
+h1 {color: white;}
+
+.tabs {color:white;}
+
+
+.bookTitle {
+    color: black;
+}
+
+.textbook-box {
+    margin: 10px 10px;
+    padding: 10px 10px;
+
+}
+
+.book-post {
+    background-color: #009999;
+}
+
+
+
+
+.pac-container {
+    z-index: 999999;
+    top: 120px !important
+}
+

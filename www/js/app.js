@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ui.bootstrap', 'google-maps'])
 
     .run(function($ionicPlatform) {
         $ionicPlatform.ready(function() {
@@ -98,13 +98,22 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             })
 
 
+            .state('tab.listings', {
+                url: '/listings',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/listings.html',
+                        controller: 'ListingsCtrl'
+                    }
+                }
+            })
 
             .state('tab.task', {
                 url: '/task',
                 views: {
                     'tab-dash': {
-                        templateUrl: 'templates/task.html'
-                        //controller: 'FormCtrl'
+                        templateUrl: 'templates/task.html',
+                        controller: 'AskCtrl'
                     }
                 }
             });
