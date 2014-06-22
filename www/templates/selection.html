@@ -1,11 +1,12 @@
 <ion-view title="Start">
   <ion-content class="has-header padding">
+      <h1 align="center">Welcome {{user.name}}</h1>
     <p>Choose a university or college</p>
     <p>Choose a Category</p>
     <ul>
-    	<li><button class="button button-full button-calm">Books or Textbooks</button></li>
-    	<li><button class="button button-full button-calm">Student Housing</button></li>
-    	<li><button class="button button-full button-calm">Study Groups</button></li>
+    	<li><button class="button button-full button-calm" ng-click="setCategory('BookPost')">Books</button></li>
+    	<li><button class="button button-full button-calm" ng-click="setCategory('Housing')">Student Housing</button></li>
+    	<li><button class="button button-full button-calm" ng-click="setCategory('StudyGroups')">Study Groups</button></li>
     </ul>
     <a><button class="button button-outline button-calm">OK</button></a>
   </ion-content>
