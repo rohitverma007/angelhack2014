@@ -40,7 +40,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: '/home',
       views: {
         'tab-dash': {
-          templateUrl: 'templates/tab-home.html',
+          templateUrl: 'templates/home.html',
           controller: 'HomeCtrl'
         }
       }
@@ -101,7 +101,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: '/navigation',
       views: {
         'tab-dash': {
-          templateUrl: 'templates/tab-navigation.html',
+          templateUrl: 'templates/navigation.html',
           controller: 'NavigationCtrl'
         }
       }
@@ -116,6 +116,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
+
+
+      .state('tab.task', {
+      url: '/task',
+      views: {
+        'tab-dash': {
+          templateUrl: 'templates/task.html'
+          //controller: 'FormCtrl'
+        }
+      }
+    })
+
 
 
   // if none of the above states are matched, use this as the fallback
