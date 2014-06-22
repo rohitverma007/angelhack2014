@@ -1,7 +1,8 @@
-<ion-view title="">
+<ion-view title="Map View">
+    <div ng-show="view == 'map'">
   <ion-content scroll="false" class="has-header padding">
       <div class="item item-input-inset">
-          <a href="#/tab/listings"><i class="icon ion-navicon-round" style="padding-left: 12px; padding-right: 12px; margin-right:10px" ng-click="filterBySearch(searchData)" class="button button-small">
+          <a href="" ng-click="changeView('listing')"><i class="icon ion-navicon-round" style="padding-left: 12px; padding-right: 12px; margin-right:10px"  class="button button-small">
              List
           </i></a>
           <label class="item-input-wrapper">
@@ -22,4 +23,39 @@
 
       <!--</div>-->
   </ion-content>
+    </div>
+    <div ng-show="view == 'listing'">
+        <ion-view ng-show="view == 'listing'" title="Listings">
+
+            <ion-content has-header="true" padding="true">
+                <div class="item item-input-inset">
+                    <a ng-click="changeView('map')"><i class="icon ion-ios7-location" style="padding-left: 12px; padding-right: 12px; margin-right:10px" class="button button-small">
+                        Map
+                    </i></a>
+                    <label class="item-input-wrapper">
+                        <input type="text"  ng-model="searchData"  placeholder="Search">
+                    </label>
+                    <button ng-click="filterBySearch(searchData)" class="button button-small">
+                        Search
+                    </button>
+                </div>
+
+                <div class="card book-post">
+                    <a class="item item-avatar textbook-box" ng-repeat="post in posts" href="#/tab/listView/{{post.id}}">
+                        <div class="item text-wrap">
+
+                            <h3 class="bookTitle"><b>{{post.attributes.title}}</b></h3>
+
+                            <h4>{{post.attributes.firstName}} {{post.attributes.lastName}}</h4>
+                            <h4>{{post.attributes.address}}</h4>
+                            <h4>
+                                {{post.attributes.price}}</h4>
+
+
+                        </div></a>
+                </div>
+            </ion-content>
+        </ion-view>
+
+    </div>
 </ion-view>

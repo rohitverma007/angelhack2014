@@ -2,6 +2,7 @@ angular.module('starter.controllers', [])
 
     .controller('DashCtrl', function($scope, $http, $rootScope) {
         Parse.initialize("QChbWiKjeo1B17tFPlmZ6Xax7NcNRqY5BNM4urHa", "NXEGGmO3LlJTf64SYAa7QJ7gLytL5I5vAbxr5tur");
+        $scope.view = "map";
         $scope.searchData = "All";
         $scope.$watch('searchData',function(old, ndew){
             console.log(old, ndew);
@@ -98,6 +99,11 @@ angular.module('starter.controllers', [])
 
                 $scope.queryPosts();
 
+                $scope.changeView = function(view){
+                    $scope.view = view;
+                    console.log(view, $scope.view);
+//                    $scope.$apply();
+                };
 
                 $scope.filterBySearch = function(lol){
 
