@@ -40,7 +40,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: '/home',
       views: {
         'tab-dash': {
-          templateUrl: 'templates/tab-home.html',
+          templateUrl: 'templates/home.html',
           controller: 'HomeCtrl'
         }
       }
@@ -104,6 +104,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
 
+
     .state('tab.selection', {
       url: '/selection',
       views: {
@@ -118,12 +119,48 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: '/navigation',
       views: {
         'tab-dash': {
-          templateUrl: 'templates/tab-navigation.html',
+          templateUrl: 'templates/navigation.html',
           controller: 'NavigationCtrl'
         }
       }
     })
 
+      .state('tab.form', {
+      url: '/form',
+      views: {
+        'tab-dash': {
+          templateUrl: 'templates/form.html'
+          //controller: 'FormCtrl'
+        }
+      }
+    })
+
+
+
+      .state('tab.task', {
+      url: '/task',
+      views: {
+        'tab-dash': {
+          templateUrl: 'templates/task.html'
+          //controller: 'FormCtrl'
+        }
+      }
+    })
+
+
+
+
+      .state('tab.form2', {
+      url: '/form2',
+      views: {
+        'tab-dash': {
+          templateUrl: 'templates/form2.html'
+          //controller: 'Form2Ctrl'
+        }
+      }
+    })
+
+   
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/home');
 

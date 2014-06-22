@@ -2,12 +2,18 @@
   <ion-content class="has-header padding">
       <h1 align="center">Welcome {{user.name}}</h1>
     <p>Choose a university or college</p>
+    <div class="list list-inset">
+    <label class="item item-input">
+    <i class="icon ion-search placeholder-icon"></i>
+    <input type="text" placeholder="University Name">
+  </label>
+</div>
     <p>Choose a Category</p>
     <ul>
     	<li><button class="button button-full button-calm" ng-click="setCategory('BookPost')">Books</button></li>
     	<li><button class="button button-full button-calm" ng-click="setCategory('Housing')">Student Housing</button></li>
     	<li><button class="button button-full button-calm" ng-click="setCategory('StudyGroups')">Study Groups</button></li>
     </ul>
-    <a><button class="button button-outline button-calm">OK</button></a>
+    <a href="#/tab/task"><button class="button button-outline button-calm">OK</button></a>
   </ion-content>
 </ion-view>
