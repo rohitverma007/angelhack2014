@@ -1,6 +1,9 @@
 <ion-view title="">
   <ion-content scroll="false" class="has-header padding">
       <div class="item item-input-inset">
+          <a href="#/tab/listings"><i class="icon ion-navicon-round" style="padding-left: 12px; padding-right: 12px; margin-right:10px" ng-click="filterBySearch(searchData)" class="button button-small">
+             List
+          </i></a>
           <label class="item-input-wrapper">
               <input type="text"  ng-model="searchData"  placeholder="Search">
           </label>
@@ -8,11 +11,11 @@
               Search
           </button>
       </div>
-      <div class="button-bar" style="position:absolute; bottom: 0; z-index: 9999">
+      <!--<div class="button-bar" style="position:absolute; bottom: 0; z-index: 9999">-->
           <!--<!--<a class="button">Map</a>-->
-          <a class="button button-assertive" >List</a>
-
-      </div>
+         <!--<a href="#/tab/listings"></a> <button style="position: fixed; bottom: 25px; z-index: 99999" class="button button-full button-assertive">List</button></a>-->
+<!--<i class="icon ion-navicon-round"></i>-->
+      <!--</div>-->
       <div id="map" data-tap-disabled="true" style="height: 100%"></div>
       <!--<ion-content id="map"></ion-content>-->
       <!--<div class="bar bar-footer">-->

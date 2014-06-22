@@ -1,9 +1,16 @@
 <ion-view title="Listings">
 
     <ion-content has-header="true" padding="true">
-        <div class="button-bar">
-            <a class="button">Map</a>
-            <a class="button button-dark" >List</a>
+        <div class="item item-input-inset">
+            <a href="#/tab/dash"><i class="icon ion-ios7-location" style="padding-left: 12px; padding-right: 12px; margin-right:10px" ng-click="filterBySearch(searchData)" class="button button-small">
+                Map
+            </i></a>
+            <label class="item-input-wrapper">
+                <input type="text"  ng-model="searchData"  placeholder="Search">
+            </label>
+            <button ng-click="filterBySearch(searchData)" class="button button-small">
+                Search
+            </button>
         </div>
 
         <div class="card book-post">
